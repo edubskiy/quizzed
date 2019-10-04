@@ -1,0 +1,2 @@
+# quizzed
+Simple quizz app
