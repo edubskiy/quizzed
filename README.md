@@ -1,2 +1,2 @@
 # quizzed
-Simple quizz app
+Simple quizz app written in Flutter
