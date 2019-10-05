@@ -1,21 +1,43 @@
 import 'package:flutter/material.dart';
+import './question.dart';
+import './answer.dart';
 
 void main() => runApp(App());
 
-class App extends StatelessWidget {
-  int questionIndex = 0;
+class App extends StatefulWidget {
+  @override
+  _AppState createState() => _AppState();
+}
 
-  void answerQuestion(int index) {
-    questionIndex += 1;
-    print('Answer chosen $index, now go to question $questionIndex');
+class _AppState extends State<App> {
+  int _questionIndex = 0;
+
+  void _answerQuestion(int index) {
+    print("answer question with $index");
+
+    setState(() => {
+      _questionIndex += 1
+    });
+    
+    print('Answer chosen $index, now go to question $_questionIndex');
   }
 
   @override
   Widget build(BuildContext context) {
-    List questions = [
-      "Wha\s is favourite color",
-      "Wha\s is favourite animal"
-    ];
+    const questions = [
+      {
+         'question': "What\'s is favourite color",
+         'answers': [ 'Black', 'Orange', 'Green', 'Red' ]
+      },
+      {
+         'question': "What\'s is favourite animal",
+         'answers': [ 'Dog', 'Cat', 'Rabbit', 'Lion' ]
+      },
+      {
+         'question': "What\'s is favourite city",
+         'answers': [ 'Palo Alto', 'Lisboa', 'Saint-Petersburg', 'San-Francisco' ]
+      },
+    ];    
 
     return MaterialApp(
       home: Scaffold(
@@ -24,19 +46,10 @@ class App extends StatelessWidget {
         ),
         body: Column(
           children: <Widget>[
-            Text(questions[questionIndex]),
-            RaisedButton(
-              child: Text("Answer 1"),
-              onPressed: () => answerQuestion(1),
-            ),
-            RaisedButton(
-              child: Text("Answer 2"),
-              onPressed: () => answerQuestion(2),
-            ),
-            RaisedButton(
-              child: Text("Answer 3"),
-              onPressed: () => answerQuestion(3),
-            ),
+            Question(questions[_questionIndex]['question']),
+            ...(questions[_questionIndex]['answers'] as List<String>).map((answer) {
+              return Answer(answer, _answerQuestion);
+            }).toList()
           ],
         )
       ),
