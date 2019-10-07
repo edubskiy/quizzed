@@ -43,14 +43,18 @@ class _AppState extends State<App> {
         appBar: AppBar(
           title: Text('Quizzed'),
         ),
-        body: Column(
-          children: <Widget>[
-            Question(questions[_questionIndex]['question']),
-            ...(questions[_questionIndex]['answers'] as List<String>).map((answer) {
-              return Answer(answer, _answerQuestion);
-            }).toList()
-          ],
-        )
+        body: _questionIndex < questions.length ? 
+          Column(
+            children: <Widget>[
+              Question(questions[_questionIndex]['question']),
+              ...(questions[_questionIndex]['answers'] as List<String>).map((answer) {
+                return Answer(answer, _answerQuestion);
+              }).toList()
+            ],
+          ) :
+          Center(
+            child: Text("You did it!")
+          )
       ),
     );
   }
