@@ -15,26 +15,46 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   int _questionIndex = 0;
+  var _totalScore = 0;
 
   final _questions = const [
       {
          'question': "What\'s is favourite color",
-         'answers': [ 'Black', 'Orange', 'Green', 'Red' ]
+         'answers': [ 
+           { 'text': 'Black', 'score': 1 },
+           { 'text': 'Orange', 'score': 2 },
+           { 'text': 'Green', 'score': 3 },
+           { 'text': 'Red', 'score': 4 },
+        ]
       },
       {
          'question': "What\'s is favourite animal",
-         'answers': [ 'Dog', 'Cat', 'Rabbit', 'Lion' ]
+         'answers': [ 
+           { 'text': 'Dog', 'score': 1 },
+           { 'text': 'Cat', 'score': 2 },
+           { 'text': 'Rabbit', 'score': 3 },
+           { 'text': 'Lion', 'score': 4 },
+          ]
       },
       {
          'question': "What\'s is favourite city",
-         'answers': [ 'Palo Alto', 'Lisboa', 'Saint-Petersburg', 'San-Francisco' ]
+         'answers': [ 
+           { 'text': 'Palo Alto', 'score': 1 },
+           { 'text': 'Lisboa', 'score': 2 },
+           { 'text': 'Saint-Petersburg', 'score': 3 },
+           { 'text': 'San-Francisco', 'score': 4 },
+          ]
       },
     ];    
 
-  void _answerQuestion() {
+  void _answerQuestion(int score) {
     _questionIndex += 1;
+    _totalScore += score;
     print("answer question with $_questionIndex");
-    setState(() => { _questionIndex });
+    setState(() => { 
+      _questionIndex,
+      _totalScore
+    });
   }
 
   @override
@@ -45,16 +65,12 @@ class _AppState extends State<App> {
           title: Text('Quizzed'),
         ),
         body: _questionIndex < _questions.length ? 
-          Quiz(answerQuestion: _answerQuestion, questionIndex: _questionIndex, questions: _questions,) :
-          // Column(
-          //   children: <Widget>[
-          //     Question(questions[_questionIndex]['question']),
-          //     ...(questions[_questionIndex]['answers'] as List<String>).map((answer) {
-          //       return Answer(answer, _answerQuestion);
-          //     }).toList()
-          //   ],
-          // ) :
-          Result()
+          Quiz(
+            answerQuestion: _answerQuestion, 
+            questionIndex: _questionIndex, 
+            questions: _questions
+          ) :
+          Result(_totalScore)
       ),
     );
   }
