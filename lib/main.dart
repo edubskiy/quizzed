@@ -12,14 +12,13 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   int _questionIndex = 0;
 
-  void _answerQuestion(int index) {
-    print("answer question with $index");
+  void _answerQuestion() {
+    _questionIndex += 1;
+    print("answer question with $_questionIndex");
 
-    setState(() => {
-      _questionIndex += 1
-    });
+    setState(() => { _questionIndex });
     
-    print('Answer chosen $index, now go to question $_questionIndex');
+    // print('Answer chosen $index, now go to question $_questionIndex');
   }
 
   @override

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Answer extends StatelessWidget {
-  final Function onSelect;
   final String answer;
-
+  final Function onSelect;
+  
   Answer(this.answer, this.onSelect);
 
   @override
